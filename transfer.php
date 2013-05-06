@@ -2,13 +2,8 @@
   require_once("includes/common.php"); 
   nav_start_outer("Transfer");
   nav_start_inner();
-  $sql = "SELECT Token FROM Person WHERE PersonID=$user->id";
-  $rs = $db->executeQuery($sql);
-  $token = $rs->getValueByNr(0,0);
 
   if($_POST['submission']) {
-    $hidden_token = $_POST['hidden_token']
-    if($hidden_token == $token) {
       $recipient = $_POST['recipient'];
       $zoobars = (int) $_POST['zoobars'];
       $sql = "SELECT Zoobars FROM Person WHERE PersonID=$user->id";
@@ -44,11 +39,6 @@
 <p>to <input name=recipient type=text value="<?php 
   echo $_POST['recipient']; 
 ?>"></p>
-
-<input type=hidden name=hidden_token value="<?php 
-  echo $token 
-?>">
-
 <input type=submit name=submission value="Send">
 </form>
 <span class=warning><?php 

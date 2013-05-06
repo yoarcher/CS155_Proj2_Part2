@@ -15,8 +15,12 @@
   action="<?php echo $_SERVER['PHP_SELF']?>">
 <textarea name="profile_update">
 <?php
-  if($_POST['profile_submit']) {  // Check for profile submission
-    $profile = $_POST['profile_update'];
+  $hiddentoken = $_POST['hiddentoken'];
+  $sql = "SELECT Token FROM Person WHERE PersonID=$user->id";
+  $rs = $db->executeQuery($sql);
+  $token = $rs->getValueByNr(0,0);
+  if($_POST['profile_submit'] && $hiddentoken == $token) {  // Check for profile submission
+    $profile = htmlspecialchars($_POST['profile_update'], ENT_QUOTES|ENT_SUBSTITUTE);
     $sql = "UPDATE Person SET Profile='$profile' ".
            "WHERE PersonID=$user->id";
     $db->executeQuery($sql);  // Overwrite profile in database
@@ -26,6 +30,9 @@
   echo $rs->getValueByNr(0,0);  // Output the current profile
 ?>
 </textarea><br/>
+<input name=hiddentoken type=hidden value="<?php
+  echo $token;
+?>">
 <input type=submit name="profile_submit" value="Save"></form>
 <?php 
   nav_end_inner();

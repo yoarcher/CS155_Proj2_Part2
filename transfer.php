@@ -2,20 +2,14 @@
   require_once("includes/common.php");
   nav_start_outer("Transfer");
   nav_start_inner();
+
   if($_POST['submission']) {
-    $recipient = $_POST['recipient'];
-    $zoobars = (int) $_POST['zoobars'];
-    $sql = "SELECT Zoobars FROM Person WHERE PersonID=$user->id";
-    $rs = $db->executeQuery($sql);
-    $sender_balance = $rs->getValueByNr(0,0) - $zoobars;
-    $sql = "SELECT PersonID FROM Person WHERE Username='$recipient'";
-    $rs = $db->executeQuery($sql);
-    $recipient_exists = $rs->getValueByNr(0,0);
-    if($zoobars > 0 && $sender_balance >= 0 && $recipient_exists) {
-      $sql = "UPDATE Person SET Zoobars = $sender_balance " .
-             "WHERE PersonID=$user->id";
-      $db->executeQuery($sql);
-      $sql = "SELECT Zoobars FROM Person WHERE Username='$recipient'";
+      $recipient = $_POST['recipient'];
+      $zoobars = (int) $_POST['zoobars'];
+      $sql = "SELECT Zoobars FROM Person WHERE PersonID=$user->id";
+      $rs = $db->executeQuery($sql);
+      $sender_balance = $rs->getValueByNr(0,0) - $zoobars;
+      $sql = "SELECT PersonID FROM Person WHERE Username='$recipient'";
       $rs = $db->executeQuery($sql);
       $recipient_balance = $rs->getValueByNr(0,0) + $zoobars;
       $sql = "UPDATE Person SET Zoobars = $recipient_balance " .

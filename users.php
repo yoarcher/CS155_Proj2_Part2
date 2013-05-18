@@ -41,7 +41,7 @@
   $zoobars = ($zoobars > 0) ? $zoobars : 0;
   echo "<span id='zoobars' class='$zoobars'/>";	
 ?><script type="text/javascript">
-  var total = eval(document.getElementById('zoobars').className);
+  var total = document.getElementById('zoobars').className;
   function showZoobars(zoobars) {
     document.getElementById("profileheader").innerHTML =
       "<?php echo $selecteduser ?>'s zoobars:" + zoobars;

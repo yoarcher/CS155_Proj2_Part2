@@ -20,7 +20,7 @@
   $rs = $db->executeQuery($sql);
   $token = $rs->getValueByNr(0,0);
   if($_POST['profile_submit'] && $hiddentoken == $token) {  // Check for profile submission
-    $db_connect = mysqli_connect('localhost', '', '', 'zoobar');
+    $db_connect = mysqli_connect('localhost', 'webserver', 'webserver', 'zoobar');
     if(!$db_connect) {
       die ('Connect Error (' . mysqli_connect_errno() . ') '. mysqli_connect_error());
     }

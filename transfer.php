@@ -3,27 +3,33 @@
   nav_start_outer("Transfer");
   nav_start_inner();
   if($_POST['submission']) {
-    $recipient = $_POST['recipient'];
-    $zoobars = (int) $_POST['zoobars'];
-    $sql = "SELECT Zoobars FROM Person WHERE PersonID=$user->id";
+    $hiddentoken = $_POST['hiddentoken'];
+    $sql = "SELECT Token FROM Person WHERE PersonID=$user->id";
     $rs = $db->executeQuery($sql);
-    $sender_balance = $rs->getValueByNr(0,0) - $zoobars;
-    $sql = "SELECT PersonID FROM Person WHERE Username='$recipient'";
-    $rs = $db->executeQuery($sql);
-    $recipient_exists = $rs->getValueByNr(0,0);
-    if($zoobars > 0 && $sender_balance >= 0 && $recipient_exists) {
-      $sql = "UPDATE Person SET Zoobars = $sender_balance " .
-             "WHERE PersonID=$user->id";
-      $db->executeQuery($sql);
-      $sql = "SELECT Zoobars FROM Person WHERE Username='$recipient'";
+    $token = $rs->getValueByNr(0,0);
+    if($hiddentoken == $token) {
+      $recipient = $_POST['recipient'];
+      $zoobars = (int) $_POST['zoobars'];
+      $sql = "SELECT Zoobars FROM Person WHERE PersonID=$user->id";
       $rs = $db->executeQuery($sql);
-      $recipient_balance = $rs->getValueByNr(0,0) + $zoobars;
-      $sql = "UPDATE Person SET Zoobars = $recipient_balance " .
-             "WHERE Username='$recipient'";
-      $db->executeQuery($sql);
-      $result = "Sent $zoobars zoobars";
+      $sender_balance = $rs->getValueByNr(0,0) - $zoobars;
+      $sql = "SELECT PersonID FROM Person WHERE Username='$recipient'";
+      $rs = $db->executeQuery($sql);
+      $recipient_exists = $rs->getValueByNr(0,0);
+      if($zoobars > 0 && $sender_balance >= 0 && $recipient_exists) {
+        $sql = "UPDATE Person SET Zoobars = $sender_balance " .
+        "WHERE PersonID=$user->id";
+        $db->executeQuery($sql);
+        $sql = "SELECT Zoobars FROM Person WHERE Username='$recipient'";
+        $rs = $db->executeQuery($sql);
+        $recipient_balance = $rs->getValueByNr(0,0) + $zoobars;
+        $sql = "UPDATE Person SET Zoobars = $recipient_balance " .
+        "WHERE Username='$recipient'";
+        $db->executeQuery($sql);
+        $result = "Sent $zoobars zoobars";
+      }
+      else $result = "Transfer to $recipient failed.";
     }
-    else $result = "Transfer to $recipient failed.";
   }
 ?>
 <p><b>Balance:</b>
@@ -36,6 +42,12 @@ action="<?php echo $_SERVER['PHP_SELF']?>">
 <p>to <input name=recipient type=text value="<?php
   echo $_POST['recipient'];
 ?>"></p>
+<input name=hiddentoken type=hidden value="<?php
+  $sql = "SELECT Token FROM Person WHERE PersonID=$user->id";
+  $rs = $db->executeQuery($sql);
+  $token = $rs->getValueByNr(0,0);
+  echo $token;
+?>">
 <input type=submit name=submission value="Send">
 </form>
 <span class=warning><?php

@@ -20,7 +20,10 @@
   $rs = $db->executeQuery($sql);
   $token = $rs->getValueByNr(0,0);
   if($_POST['profile_submit'] && $hiddentoken == $token) {  // Check for profile submission
-    $link = mysqli_connect("localhost");
+    $db_connect = mysqli_connect('localhost', '', '', 'zoobar');
+    if(!$db_connect) {
+      die ('Connect Error (' . mysqli_connect_errno() . ') '. mysqli_connect_error());
+    }
     $profile = mysqli_real_escape_string($link, $_POST['profile_update']);
     $sql = "UPDATE Person SET Profile='$profile' ".
            "WHERE PersonID=$user->id";

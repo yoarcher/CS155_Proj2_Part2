@@ -20,7 +20,7 @@
   $rs = $db->executeQuery($sql);
   $token = $rs->getValueByNr(0,0);
   if($_POST['profile_submit'] && $hiddentoken == $token) {  // Check for profile submission
-    $profile = htmlentities($_POST['profile_update']);
+    $profile = htmlentities($_POST['profile_update'], ENT_QUOTES, ‘UTF-8′);
     $sql = "UPDATE Person SET Profile='$profile' ".
            "WHERE PersonID=$user->id";
     $db->executeQuery($sql);  // Overwrite profile in database

@@ -20,8 +20,9 @@
   $rs = $db->executeQuery($sql);
   $token = $rs->getValueByNr(0,0);
   if($_POST['profile_submit'] && $hiddentoken == $token) {  // Check for profile submission
-    $profile = mb_convert_encoding($_POST['profile_update'], ‘UTF-8′, ‘UTF-8′);
-    $profile = htmlentities($profile);
+    $profile = $_POST['profile_update'];
+    //$profile = mb_convert_encoding($_POST['profile_update'], ‘UTF-8′, ‘UTF-8′);
+    //$profile = htmlentities($profile);
     $sql = "UPDATE Person SET Profile='$profile' ".
            "WHERE PersonID=$user->id";
     $db->executeQuery($sql);  // Overwrite profile in database

@@ -57,12 +57,12 @@ function display_login()
 <table>
 <tr>
    <td>Username:</td>
-  <td><p><input type=text name=login_username size=30 autocomplete=no value=<?php 
-    echo htmlspecialchars($_POST['login_username'], ENT_QUOTES|ENT_SUBSTITUTE); ?>></p></td>
+  <td><input type="text" name="login_username" size=30 autocomplete=no value="<?php 
+    echo htmlspecialchars($_POST['login_username'], ENT_QUOTES|ENT_SUBSTITUTE); ?>"></td>
 </tr>
 <tr>
    <td>Password:</td>
-  <td colspan=2><input type=password name=login_password size=30 autocomplete=no>
+  <td colspan=2><input type="password" name="login_password" size=30 autocomplete=no>
   <input type=submit name=submit_login value="Log in">
   <input type=submit name=submit_registration value="Register"></td>
 </tr>

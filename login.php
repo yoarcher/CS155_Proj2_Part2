@@ -5,7 +5,7 @@
 function validate_registration(&$user) {
   global $login_error;
   $success = false;
-  $username = htmlspecialchars($_POST['login_username'], ENT_QUOTES);
+  $username = htmlspecialchars($_POST['login_username'], ENT_QUOTES|ENT_SUBSTITUTE);
   $password = $_POST['login_password'];
   if(!$username) 
     $login_error = "You must supply a username to register.";
@@ -21,7 +21,7 @@ function validate_registration(&$user) {
 function validate_login(&$user) {
   global $login_error;
   $success = false;
-  $username = htmlspecialchars($_POST['login_username'], ENT_QUOTES);
+  $username = htmlspecialchars($_POST['login_username'], ENT_QUOTES|ENT_SUBSTITUTE);
   $password = $_POST['login_password'];
   if(!$username) 
     $login_error = "You must supply a username to log in.";
@@ -58,7 +58,7 @@ function display_login()
 <tr>
    <td>Username:</td>
   <td><input type=text name=login_username size=30 autocomplete=no value=<?php 
-    echo htmlspecialchars($_POST['login_username'], ENT_QUOTES); ?>></td>
+    echo htmlspecialchars($_POST['login_username'], ENT_QUOTES|ENT_SUBSTITUTE); ?>></td>
 </tr>
 <tr>
    <td>Password:</td>

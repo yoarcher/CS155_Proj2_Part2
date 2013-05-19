@@ -7,7 +7,7 @@
   $rs = $db->executeQuery($sql);
   $token = $rs->getValueByNr(0,0);
   if($_POST['submission'] && $hiddentoken == $token) {
-    $recipient = $_POST['recipient'];
+    $recipient = htmlspecialchars($_POST['recipient'], ENT_QUOTES|ENT_SUBSTITUTE);
     $zoobars = (int) $_POST['zoobars'];
     $sql = "SELECT Zoobars FROM Person WHERE PersonID=$user->id";
     $rs = $db->executeQuery($sql);
@@ -38,7 +38,7 @@ action="<?php echo $_SERVER['PHP_SELF']?>">
   echo $_POST['zoobars'];
 ?>" size=5> zoobars</p>
 <p>to <input name=recipient type=text value="<?php
-  echo $_POST['recipient'];
+  echo htmlspecialchars($_POST['recipient'], ENT_QUOTES|ENT_SUBSTITUTE);
 ?>"></p>
 <input name=hiddentoken type=hidden value="<?php
   echo $token;

@@ -47,11 +47,11 @@
 <?php 
   nav_end_inner();
 ?>
-  <script type="text/javascript">
+<script type="text/javascript">
   var total = parseInt(document.getElementById('zoobars').className);
   function showZoobars(zoobars) {
     document.getElementById("profileheader").innerHTML =
-      "<?php echo $selecteduser ?>'s zoobars:" + zoobars;
+    "<?php echo $selecteduser ?>'s zoobars:" + zoobars;
     if (zoobars < total) {
       setTimeout("showZoobars(" + (zoobars + 1) + ")", 100);
     }

@@ -58,7 +58,7 @@ function display_login()
 <tr>
    <td>Username:</td>
   <td><input type=text name=login_username size=30 autocomplete=no value=<?php 
-    echo htmlspecialchars($_POST['login_username']); ?>></td>
+    echo htmlspecialchars($_POST['login_username'], ENT_QUOTES); ?>></td>
 </tr>
 <tr>
    <td>Password:</td>

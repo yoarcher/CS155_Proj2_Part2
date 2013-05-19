@@ -15,7 +15,7 @@
 </form>
 <div id="profileheader"><!-- user data appears here --></div>
 <?php 
-  $selecteduser = $_GET['user']; 
+  $selecteduser = htmlspecialchars($_GET['user'], ENT_QUOTES);
   $sql = "SELECT Profile, Username, Zoobars FROM Person " . 
          "WHERE Username='$selecteduser'";
   $rs = $db->executeQuery($sql);

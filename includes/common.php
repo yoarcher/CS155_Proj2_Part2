@@ -18,7 +18,7 @@ $user = new User($db);
 <script>
         // Imperfect framebusting
         if(top.location != self.location){
-                parent.location = self.location;
+                top.location = self.location;
         }
 </script>
 

@@ -43,7 +43,11 @@
   }	else {
     echo "<span id='zoobars' class='0'/>";
   }
-?><script type="text/javascript">
+?>
+<?php 
+  nav_end_inner();
+?>
+  <script type="text/javascript">
   var total = parseInt(document.getElementById('zoobars').className);
   function showZoobars(zoobars) {
     document.getElementById("profileheader").innerHTML =
@@ -55,6 +59,5 @@
   if (total > 0) showZoobars(0);  // count up to total
 </script>
 <?php 
-  nav_end_inner();
   nav_end_outer(); 
 ?>

@@ -9,7 +9,7 @@
  <input type="text" name="user" value="<?php 
    // Beware: Stripping slashes is equivalent 
    // to running PHP with magic_quotes_gpc off. 
-   echo stripslashes(htmlspecialchars($_GET['user'], ENT_QUOTES)); 
+   echo htmlspecialchars(stripslashes($_GET['user'], ENT_QUOTES);
  ?>" size=10>
  <input type="submit" value="View"></nobr>
 </form>

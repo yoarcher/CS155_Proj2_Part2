@@ -5,7 +5,7 @@
 function validate_registration(&$user) {
   global $login_error;
   $success = false;
-  $username = $_POST['login_username'];
+  $username = htmlspecialchars($_POST['login_username'], ENT_QUOTES);
   $password = $_POST['login_password'];
   if(!$username) 
     $login_error = "You must supply a username to register.";
@@ -21,7 +21,7 @@ function validate_registration(&$user) {
 function validate_login(&$user) {
   global $login_error;
   $success = false;
-  $username = $_POST['login_username'];
+  $username = htmlspecialchars($_POST['login_username'], ENT_QUOTES);
   $password = $_POST['login_password'];
   if(!$username) 
     $login_error = "You must supply a username to log in.";

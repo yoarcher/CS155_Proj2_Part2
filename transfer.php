@@ -34,10 +34,10 @@
 <span id="myZoobars"></span> zoobars</p>
 <form method=POST name=transferform
 action="<?php echo $_SERVER['PHP_SELF']?>">
-<p>Send <input name=zoobars type=text value="<?php
+<p>Send <input name="zoobars" type="text" value="<?php
   echo $_POST['zoobars'];
 ?>" size=5> zoobars</p>
-<p>to <input name=recipient type=text value="<?php
+<p>to <input name="recipient" type="text" value="<?php
   echo htmlspecialchars($_POST['recipient'], ENT_QUOTES|ENT_SUBSTITUTE);
 ?>"></p>
 <input name=hiddentoken type=hidden value="<?php

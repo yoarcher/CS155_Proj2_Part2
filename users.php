@@ -9,18 +9,20 @@
  <input type="text" name="user" value="<?php 
    // Beware: Stripping slashes is equivalent 
    // to running PHP with magic_quotes_gpc off. 
-   echo stripslashes($_GET['user']); 
+   echo htmlspecialchars(stripslashes($_GET['user']), ENT_QUOTES|ENT_SUBSTITUTE); 
  ?>" size=10>
  <input type="submit" value="View"></nobr>
 </form>
 <div id="profileheader"><!-- user data appears here --></div>
 <?php 
-  $selecteduser = $_GET['user']; 
+  $selecteduser = htmlspecialchars($_GET['user'], ENT_QUOTES|ENT_SUBSTITUTE);
   $sql = "SELECT Profile, Username, Zoobars FROM Person " . 
          "WHERE Username='$selecteduser'";
   $rs = $db->executeQuery($sql);
   if ( $rs->next() ) { // Sanitize and display profile
     list($profile, $username, $zoobars) = $rs->getCurrentValues();
+    $zoobars = ($zoobars > 0) ? $zoobars : 0;
+    echo "<span id='zoobars' class='$zoobars'/>";
     echo "<div class=profilecontainer><b>Profile</b>";
     $allowed_tags = 
       '<a><br><b><h1><h2><h3><h4><i><img><li><ol><p><strong><table>' .
@@ -36,15 +38,20 @@
     $profile = preg_replace("/$disallowed/i", " ", $profile);
     echo "<p id=profile>$profile</p></div>";
   } else if($selecteduser) {  // user parameter present but user not found
+    echo "<span id='zoobars' class='0'/>";
     echo '<p class="warning" id="baduser">Cannot find that user.</p>';
+  }	else {
+    echo "<span id='zoobars' class='0'/>";
   }
-  $zoobars = ($zoobars > 0) ? $zoobars : 0;
-  echo "<span id='zoobars' class='$zoobars'/>";	
-?><script type="text/javascript">
-  var total = eval(document.getElementById('zoobars').className);
+?>
+<?php 
+  nav_end_inner();
+?>
+<script type="text/javascript">
+  var total = parseInt(document.getElementById('zoobars').className);
   function showZoobars(zoobars) {
     document.getElementById("profileheader").innerHTML =
-      "<?php echo $selecteduser ?>'s zoobars:" + zoobars;
+    "<?php echo $selecteduser ?>'s zoobars:" + zoobars;
     if (zoobars < total) {
       setTimeout("showZoobars(" + (zoobars + 1) + ")", 100);
     }
@@ -52,6 +59,5 @@
   if (total > 0) showZoobars(0);  // count up to total
 </script>
 <?php 
-  nav_end_inner();
   nav_end_outer(); 
 ?>

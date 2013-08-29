@@ -1,6 +1,8 @@
 CS155 Project2 Part2
 ================
 
+This repo is to defend zoobar website from SQL injection, cross-site request forgery and cross-site scripting.
+
 <b>login.php:</b>
 
 1. Add htmlspecialchars($_POST['login_username'], ENT_QUOTES|ENT_SUBSTITUTE) in three places:
